@@ -3,18 +3,21 @@
     You have to return the number of distinct ways in which you can reach the Nth stair from the 0th stair.
 */
 
+let stairs = 3;
+const dp = new Array(stairs+1).fill(-1);
+
 // Memoization
-const countNumberOfWaysOne = (n) => {
+const countNumberOfWaysOne = (n,dp) => {
     if(n==0 || n==1) return 1;
+    if(dp[n] !== -1) return dp[n];
 
-    let left = countNumberOfWaysOne(n-1);
-    let right = countNumberOfWaysOne(n-2);
+    let left = countNumberOfWaysOne(n-1,dp);
+    let right = countNumberOfWaysOne(n-2,dp);
 
-    return left + right;
+    return (dp[n] = left + right);
 }
 
-let stairs = 3;
-console.log("Using Memoization: ",countNumberOfWaysOne(stairs))
+console.log("Using Memoization: ",countNumberOfWaysOne(stairs,dp))
 
 // Tabulation
 const countNumberOfWaysTwo = (n) => {
